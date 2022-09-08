@@ -12,6 +12,8 @@ GameObject:
   - component: {fileID: 6772141016075936644}
   - component: {fileID: 6772141015355158589}
   - component: {fileID: 6854226889295856523}
+  - component: {fileID: -2012660732788736172}
+  - component: {fileID: 5957927343632381154}
   m_Layer: 0
   m_Name: Doe
   m_TagString: Untagged
@@ -87,6 +89,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 80a39a84b73541f49b46ea637f820ac2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!65 &-2012660732788736172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772141016085198418}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.24702978, y: 0.4278267, z: 0.4964052}
+  m_Center: {x: -0.0000015735626, y: 0.13991565, z: 0.046042778}
+--- !u!114 &5957927343632381154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6772141016085198418}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9812c7c7e2be2264791f01401c0fe40a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6772141016085206274

@@ -14,6 +14,7 @@ public class DestroyOutOfBonds : MonoBehaviour
 
     void Update()
     {
+        // if an object goes past the player view in the game, remove that object
         if (transform.position.z > topBound)
         {
             Destroy(gameObject);
@@ -21,6 +22,7 @@ public class DestroyOutOfBonds : MonoBehaviour
 
         else if (transform.position.z < lowerBound)
         {
+            Debug.Log("Game Over!");
             Destroy(gameObject);
         }
     }
