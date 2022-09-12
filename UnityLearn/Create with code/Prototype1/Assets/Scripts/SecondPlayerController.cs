@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlayerController : MonoBehaviour
+public class SecondPlayerController : MonoBehaviour
 {
     private float speed = 20f;
     private float turnSpeed = 45f;
@@ -26,13 +26,13 @@ public class PlayerController : MonoBehaviour
         // Rotates the car based on horizontal input
         transform.Rotate(Vector3.up * horizontalInput * Time.deltaTime * turnSpeed);
 
-        if (Input.GetKeyDown(KeyCode.Q) && driver.enabled == false)
+        if (Input.GetKeyDown(KeyCode.Z) && driver.enabled == false)
         {
             driver.enabled = true;
             above.enabled = false;
         }
 
-        else if (Input.GetKeyDown(KeyCode.Q) && driver.enabled == true)
+        else if (Input.GetKeyDown(KeyCode.Z) && driver.enabled == true)
         {
             driver.enabled = false;
             above.enabled = true; ;
@@ -41,3 +41,4 @@ public class PlayerController : MonoBehaviour
 
     }
 }
+
