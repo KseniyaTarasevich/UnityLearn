@@ -21,9 +21,15 @@ public class MoveLeft : MonoBehaviour
             transform.Translate(Vector3.left * speed * Time.deltaTime);
         }
 
-        if(transform.position.x <leftBound && gameObject.CompareTag("Obstacle"))
+        if (transform.position.x < leftBound && gameObject.CompareTag("Obstacle"))
         {
             Destroy(gameObject);
+        }
+
+        if (Input.GetKey(KeyCode.LeftShift) && playerControllerScript.isOnGround && !playerControllerScript.gameOver)
+        {
+            transform.Translate(Vector3.left * speed * 2 * Time.deltaTime);
+            playerControllerScript.animPlayer.speed = 2;
         }
     }
 }

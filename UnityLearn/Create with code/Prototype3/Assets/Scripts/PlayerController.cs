@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     private Rigidbody rb;
-    private Animator animPlayer;
+    public Animator animPlayer;
     public ParticleSystem explosionParticle;
     public ParticleSystem dirtParticle;
     public AudioClip jumpSound;
@@ -13,9 +13,14 @@ public class PlayerController : MonoBehaviour
     private AudioSource playerAudio;
 
     public float jumpForce;
+    private float doubleJumpForce;
     public float gravityModifier;
     public bool isOnGround = true;
     public bool gameOver;
+    public float score = 0;
+
+    public Transform startingPoint;
+    public float lerpSpeed;
 
     void Start()
     {
@@ -24,6 +29,33 @@ public class PlayerController : MonoBehaviour
         playerAudio = GetComponent<AudioSource>();
 
         Physics.gravity *= gravityModifier;
+
+        gameOver = true;
+        StartCoroutine(PlayIntro());
+    }
+
+    IEnumerator PlayIntro()
+    {
+        Vector3 startPos = transform.position;
+        Vector3 endPos = startingPoint.position;
+
+        float journeyLength = Vector3.Distance(startPos, endPos);
+        float startTime = Time.time;
+        float distanceCovered = (Time.time - startTime) * lerpSpeed;
+        float fractionOfJourney = distanceCovered / journeyLength;
+
+        GetComponent<Animator>().SetFloat("Speed_Multiplier", 0.5f);
+
+        while (fractionOfJourney < 1)
+        {
+            distanceCovered = (Time.time - startTime) * lerpSpeed;
+            fractionOfJourney = distanceCovered / journeyLength;
+            transform.position = Vector3.Lerp(startPos, endPos, fractionOfJourney);
+            yield return null;
+        }
+
+        GetComponent<Animator>().SetFloat("Speed_Multiplier", 1.0f);
+        gameOver = false;
     }
 
     void Update()
@@ -31,10 +63,30 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && isOnGround && !gameOver)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isOnGround = false;
+            // isOnGround = false;
             animPlayer.SetTrigger("Jump_trig");
             dirtParticle.Play();
             playerAudio.PlayOneShot(jumpSound, 1f);
+        }
+
+        if (Input.GetKeyDown(KeyCode.Space) && !isOnGround && !gameOver)
+        {
+            rb.AddForce(Vector3.up * doubleJumpForce, ForceMode.Impulse);
+            isOnGround = false;
+            animPlayer.SetTrigger("Jump_trig");
+            playerAudio.PlayOneShot(jumpSound, 1f);
+        }
+
+        if (!gameOver)
+        {
+            score += Time.deltaTime;
+            Debug.Log("Score: " + Mathf.FloorToInt(score));
+
+            if (Input.GetKey(KeyCode.LeftShift))
+            {
+                score += Time.deltaTime * 2;
+                Debug.Log("Score: " + Mathf.FloorToInt(score));
+            }
         }
     }
 
@@ -57,3 +109,5 @@ public class PlayerController : MonoBehaviour
         }
     }
 }
+
+
